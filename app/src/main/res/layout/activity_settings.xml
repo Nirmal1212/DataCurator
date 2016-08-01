@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="xyz.nirmalkumar.datacurator.SettingsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:text="BASE Folder :"
+                android:layout_weight="2"
+                android:padding="@dimen/activity_horizontal_margin"
+                />
+            <TextView
+                android:id="@+id/base_folder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:text="Choose BASE Folder"
+                android:layout_weight="1"
+                android:padding="@dimen/activity_horizontal_margin"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:text="Tag Config:"
+                android:layout_weight="2"
+                android:padding="@dimen/activity_horizontal_margin"
+                />
+            <TextView
+                android:id="@+id/tag_config"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choose Tag config file"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:padding="@dimen/activity_horizontal_margin"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:text="Items Folder :"
+                android:layout_weight="2"
+                android:padding="@dimen/activity_horizontal_margin"
+                />
+            <TextView
+                android:id="@+id/items_folder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:text="Choose Items Folder"
+                android:layout_weight="1"
+                android:padding="@dimen/activity_horizontal_margin"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:paddingRight="40dp"
+        android:paddingLeft="40dp"
+        android:text="Start tagging"
+        android:background="@color/app_orange"
+        android:textColor="@color/app_black"
+        />
+
+</RelativeLayout>
