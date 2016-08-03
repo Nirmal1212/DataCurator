@@ -52,7 +52,7 @@ import xyz.nirmalkumar.datacurator.controllers.Utils;
 import xyz.nirmalkumar.datacurator.models.Tag;
 import xyz.nirmalkumar.datacurator.models.TagAttr;
 
-public class HomeBulkMode extends Fragment {
+public class HomeFragment extends Fragment {
 
 
     private ArrayList<Tag> tagList;
@@ -60,7 +60,7 @@ public class HomeBulkMode extends Fragment {
     private DisplayImageOptions imOptions;
     private JSONObject input,output;
 
-    public HomeBulkMode() {
+    public HomeFragment() {
         // Required empty public constructor
     }
 
@@ -400,7 +400,7 @@ public class HomeBulkMode extends Fragment {
                 .tasksProcessingOrder(QueueProcessingType.LIFO)
                 .build();
         // Initialize ImageLoader with configuration.
-        com.nostra13.universalimageloader.core.ImageLoader.getInstance().init(config);
+        ImageLoader.getInstance().init(config);
         imOptions = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
                 .imageScaleType(ImageScaleType.EXACTLY)

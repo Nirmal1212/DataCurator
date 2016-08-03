@@ -22,6 +22,7 @@ public class TagManager {
     public static final String TAGFILE = "TAG_FILE";
     public static final String ITEMS_FOLDER = "ITEMS_FOLDER";
     private static final String TAG_CONFIG_JSON = "TAG_CONFIG_JSON";
+    private static final String TAG_ONLINEFILE = "TAG_ONLINE_FILE";
 
     public static void onLogin(){
         Utils.saveTextToFile("Test","test");
@@ -122,4 +123,13 @@ public class TagManager {
     }
 
 
+    public static void setOnlineTagFile(Context mContext, String url) {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put(TagManager.TAG_ONLINEFILE,url);
+        saveKeyValueInPref(mContext,map);
+    }
+
+    public static String getOnlineTagFile(Context mContext){
+        return getValueInPref(mContext,TAG_ONLINEFILE);
+    }
 }

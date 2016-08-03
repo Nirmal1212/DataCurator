@@ -30,12 +30,15 @@
         <activity
             android:name=".Settings"
             android:label="@string/title_activity_settings" />
-
-        <activity android:name=".SettingsActivity"></activity>
-
+        <activity android:name=".SettingsActivity" />
         <activity
             android:name=".ItemsExplorer"
-            android:label="@string/title_activity_items_explorer"></activity>
-
+            android:label="@string/title_activity_items_explorer" />
+        <activity
+            android:name=".ScrollingActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".SimpleHomeActivity"></activity>
     </application>
+
 </manifest>

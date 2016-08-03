@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/selection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="130dp"
+        android:layout_height="160dp"
         android:layout_centerInParent="true"
         android:background="@color/semi_transparent_dark"
-        android:padding="30dp"
+        android:padding="@dimen/activity_horizontal_margin"
         android:src="@drawable/tick"
-        android:visibility="invisible"
+        android:visibility="visible"
+        android:alpha=".7"
         />
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="130dp"
+        android:layout_height="160dp"
         android:scaleType="centerInside"
         android:layout_centerInParent="true"
+        android:src="@drawable/placeholder"
+        android:alpha="0.1"
+        android:tintMode="src_over"
          />
 </RelativeLayout>

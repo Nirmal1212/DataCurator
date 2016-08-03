@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import xyz.nirmalkumar.datacurator.fragments.HomeBulkMode;
 import xyz.nirmalkumar.datacurator.fragments.HomeSingleMode;
 
-public class Home extends AppCompatActivity implements HomeBulkMode.OnFragmentInteractionListener,HomeSingleMode.OnFragmentInteractionListener{
+public class Home extends AppCompatActivity implements HomeSingleMode.OnFragmentInteractionListener{
 
     private ViewPager mPager;
     private TabsAdapter mTabsAdapter;

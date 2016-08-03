@@ -14,6 +14,22 @@ public class ImageItem {
     @Expose
     String path;
 
+    boolean isLocal;
+
+    public ImageItem(String path, boolean isLocal) {
+        this.path = path;
+        this.isLocal = isLocal;
+    }
+
+    public boolean isLocal() {
+
+        return isLocal;
+    }
+
+    public void setLocal(boolean local) {
+        isLocal = local;
+    }
+
     @Expose
     String name;
 
