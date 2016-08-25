@@ -28,10 +28,10 @@ Make sure your android phone and the server are connected in the same WIFI netwo
 
 Follow the screenshots and tag your images!!
 
-![Login Page](/login.png "Login Page")
+![Login Page](/screenshots/login.png?raw=true "Login Page")
 
 
-![Curate Page](/curate.png "Tagging Page")
+![Curate Page](/screenshots/curate.png?raw=true "Tagging Page")
 
 
-![Upload results](/onupload_button.png "Upload by clicking on the upload button")
+![Upload results](/screenshots/onupload_button.png?raw=true "Upload by clicking on the upload button")
