@@ -266,6 +266,11 @@ public class Utils {
         String root = Environment.getExternalStorageDirectory().toString();
         File myDir = new File(root + "/"+BASE_FOLDER_PATH);
         String ext = ".txt";
+        String[] names = filename.split(".",2);
+        if(names.length > 1) {
+            filename = names[0];
+            ext = names[1];
+        }
         myDir.mkdirs();
         String fname = filename+"_" + getPrettyTimeStamp() + ext;
         File file = new File(myDir, fname);
@@ -289,6 +294,7 @@ public class Utils {
         logd( "Saved file @ " + file.getAbsolutePath());
         return file.getAbsolutePath();
     }
+
 
     public static String readTextFromFile(String filePath) throws FileNotFoundException {
         File file = new File(filePath);

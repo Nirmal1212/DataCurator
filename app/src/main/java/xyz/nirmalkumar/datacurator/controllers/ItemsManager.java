@@ -4,6 +4,9 @@ import android.content.Context;
 import android.os.Environment;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -21,6 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -35,8 +39,9 @@ public class ItemsManager {
     private static final String ONLINE_ITEMS_LIST = "online_items";
     public static final String OTHERS_FOLDER = "_others";
     private static final String PRODUCT_LIST = "products_list";
+    private static final String ONLINE_TAG_LIST = "online_tags";
 
-    public static void pushItemToServer(Context mContext, String url, File file){
+    public static void pushItemToServer(Context mContext, final String url, File file){
 
         int size = (int) file.length();
         final byte[] byteData = new byte[size];
@@ -51,7 +56,17 @@ public class ItemsManager {
         }
 //        String url = "http://192.168.0.54:8000/images/test1/";
 
-        BaseVolleyRequest baseVolleyRequest = new BaseVolleyRequest(1, url, null,null) {
+        BaseVolleyRequest baseVolleyRequest = new BaseVolleyRequest(1, url, new Response.Listener<NetworkResponse>() {
+            @Override
+            public void onResponse(NetworkResponse response) {
+                Utils.logd("Got response from server " + url + " StatusCode: " + response.statusCode + "  " + response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Utils.logd("Got response from server " + url + " StatusCode: " + error.networkResponse.statusCode+ "  " + error.toString());
+            }
+        }) {
 
             DataOutputStream dos = null;
             String lineEnd = "\r\n";
@@ -155,6 +170,54 @@ public class ItemsManager {
         Map<String, String> kvals=new HashMap<>();
         kvals.put(ONLINE_ITEMS_LIST,json);
         TagManager.saveKeyValueInPref(mContext,kvals);
+        JSONObject input = null;
+        ArrayList<Product> products = new ArrayList<>();
+        JSONArray tags = new JSONArray();
+        try {
+            input = new JSONObject(json);
+            Iterator it = input.keys();
+            while(it.hasNext()){
+                String key = (String) it.next();
+                tags.put(key);
+                JSONArray arr = input.getJSONArray(key);
+                for(int i=0;i<arr.length();i++)
+                    products.add(new Product(false,arr.getString(i),null,key));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        saveProductsList(mContext,products);
+        kvals.clear();
+        kvals.put(ONLINE_TAG_LIST,tags.toString());
+        TagManager.saveKeyValueInPref(mContext,kvals);
+    }
+
+    public static ArrayList<String> getOnlineTagsList(Context mContext){
+        ArrayList<String> res = new ArrayList<>();
+        String s = TagManager.getValueInPref(mContext,ONLINE_TAG_LIST);
+        if(s!=null){
+            try {
+                JSONArray arr = new JSONArray(s);
+                for(int i=0;i<arr.length();i++)
+                    res.add(arr.getString(i));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return res;
+    }
+    public static JSONObject getOnlineItemsList(Context mContext) {
+        String s = TagManager.getValueInPref(mContext,ONLINE_ITEMS_LIST);
+        if(s==null)
+            return null;
+        try {
+            JSONObject obj = new JSONObject(s);
+            return obj;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static String getProductsAsJSON(Context mContext, ArrayList<Product> items){
@@ -212,19 +275,8 @@ public class ItemsManager {
                 e.printStackTrace();
             }
         }
+        Utils.logd("Items in list="+results.size());
         return results;
     }
 
-    public static JSONObject getOnlineItemsList(Context mContext) {
-        String s = TagManager.getValueInPref(mContext,ONLINE_ITEMS_LIST);
-        if(s==null)
-            return null;
-        try {
-            JSONObject obj = new JSONObject(s);
-            return obj;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 }

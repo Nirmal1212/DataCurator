@@ -2,7 +2,6 @@ package xyz.nirmalkumar.datacurator;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
@@ -45,17 +44,7 @@ public class SplashScreen extends AppCompatActivity {
                         // Display the first 500 characters of the response string.
                         Utils.logd("response = "+response);
                         ItemsManager.setOnlineItemsList(SplashScreen.this,response);
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-//                                if(TagManager.isConfigured(SplashScreen.this))
-//                                    startActivity(new Intent(SplashScreen.this,Home.class));
-//                                else
-//                                    startActivity(new Intent(SplashScreen.this,SettingsActivity.class));
-//                                finish();
-                                startActivity(new Intent(SplashScreen.this,SimpleHomeActivity.class));
-                            }
-                        },500);
+                        startActivity(new Intent(SplashScreen.this,SimpleHomeActivity.class));
                     }
                 }, new Response.ErrorListener() {
             @Override

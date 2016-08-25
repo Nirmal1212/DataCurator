@@ -7,6 +7,8 @@ import com.google.gson.annotations.Expose;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import xyz.nirmalkumar.datacurator.controllers.Utils;
+
 /**
  * Created by nirmal on 8/3/16.
  */
@@ -24,6 +26,8 @@ public class Product {
     public static Product getInstance(String json) {
         Gson gson = new GsonBuilder().create();
         Product it =gson.fromJson(json,Product.class);
+        Utils.logd(" Product: "+json);
+        Utils.logd(" Product ur: "+it.url);
         return it;
     }
 

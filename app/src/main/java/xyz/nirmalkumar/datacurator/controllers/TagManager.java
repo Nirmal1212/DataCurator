@@ -126,10 +126,22 @@ public class TagManager {
     public static void setOnlineTagFile(Context mContext, String url) {
         Map<String, String> map = new HashMap<String, String>();
         map.put(TagManager.TAG_ONLINEFILE,url);
+        String fullurl = url;
+        String[] splits = fullurl.split("/");
+        String baseURL = fullurl.substring(0,fullurl.indexOf(splits[splits.length -1]));
+        Utils.logd("Full URL ="+fullurl+" baseURL = "+baseURL);
         saveKeyValueInPref(mContext,map);
     }
 
     public static String getOnlineTagFile(Context mContext){
         return getValueInPref(mContext,TAG_ONLINEFILE);
+    }
+
+    public static String getOnlineBaseURL(Context mContext){
+        String fullurl = getValueInPref(mContext,TAG_ONLINEFILE);
+        String[] splits = fullurl.split("/");
+        String baseURL = fullurl.substring(0,fullurl.indexOf(splits[splits.length -1]));
+        Utils.logd("Full URL ="+fullurl+" baseURL = "+baseURL);
+        return baseURL;
     }
 }
