@@ -1,11 +1,13 @@
 package xyz.nirmalkumar.datacurator;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -43,19 +45,29 @@ public class SplashScreen extends AppCompatActivity {
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
                         Utils.logd("response = "+response);
+                        Toast.makeText(SplashScreen.this,"Successfully pulled the config file!",Toast.LENGTH_LONG).show();
                         ItemsManager.setOnlineItemsList(SplashScreen.this,response);
+                        if(mDialog!=null)
+                            mDialog.dismiss();
                         startActivity(new Intent(SplashScreen.this,SimpleHomeActivity.class));
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
+                if(mDialog!=null)
+                    mDialog.dismiss();
                 Utils.logd("Error received "+error.toString());
+                Toast.makeText(SplashScreen.this,"Error connecting to the server!",Toast.LENGTH_LONG).show();
             }
         });
 
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
+        mDialog = ProgressDialog.show(SplashScreen.this,"Data Curator","Loading...");
     }
+
+    ProgressDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

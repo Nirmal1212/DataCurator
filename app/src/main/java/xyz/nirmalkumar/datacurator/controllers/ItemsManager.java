@@ -2,6 +2,7 @@ package xyz.nirmalkumar.datacurator.controllers;
 
 import android.content.Context;
 import android.os.Environment;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -41,7 +42,7 @@ public class ItemsManager {
     private static final String PRODUCT_LIST = "products_list";
     private static final String ONLINE_TAG_LIST = "online_tags";
 
-    public static void pushItemToServer(Context mContext, final String url, File file){
+    public static void pushItemToServer(final Context mContext, final String url, File file){
 
         int size = (int) file.length();
         final byte[] byteData = new byte[size];
@@ -60,11 +61,13 @@ public class ItemsManager {
             @Override
             public void onResponse(NetworkResponse response) {
                 Utils.logd("Got response from server " + url + " StatusCode: " + response.statusCode + "  " + response.toString());
+                Toast.makeText(mContext,"Image Uploaded to your machine "+url,Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Utils.logd("Got response from server " + url + " StatusCode: " + error.networkResponse.statusCode+ "  " + error.toString());
+                Toast.makeText(mContext,"Upload error to "+url,Toast.LENGTH_LONG).show();
             }
         }) {
 

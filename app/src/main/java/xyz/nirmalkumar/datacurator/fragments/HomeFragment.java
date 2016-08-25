@@ -27,6 +27,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.utils.L;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -149,13 +150,14 @@ public class HomeFragment extends Fragment {
         JSONObject data = mAdapter.getOutputData();
         String url = TagManager.getOnlineBaseURL(getActivity());
 
+        String fileName = null;
         try {
-            String fileName = Utils.saveTextToFile(data.toString(3),"out.json");
-            File file = new File(fileName);
-            ItemsManager.pushItemToServer(getActivity(), url, file);
+            fileName = Utils.saveTextToFile(data.toString(4),"out.txt");
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        File file = new File(fileName);
+        ItemsManager.pushItemToServer(getActivity(), url, file);
 
     }
 
@@ -201,11 +203,19 @@ public class HomeFragment extends Fragment {
             JSONObject data = new JSONObject();
             JSONObject res = new JSONObject();
             try {
-                data.put(filterBy, res);
+                JSONArray tagged = new JSONArray();
+                JSONArray untagged = new JSONArray();
                 for (int i = 0; i < imageItems.size(); i++) {
                     boolean b = selectedPositions.containsKey(i);
-                    res.put(imageItems.get(i).getUrl(), b);
+                    if(b)
+                        tagged.put(imageItems.get(i).getUrl());
+                    else
+                        untagged.put(imageItems.get(i).getUrl());
                 }
+                res.put("tagged",tagged);
+                res.put("untagged",untagged);
+                data.put(filterBy, res);
+                Utils.logd("Got data:"+data.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
