@@ -152,7 +152,7 @@ public class HomeFragment extends Fragment {
 
         String fileName = null;
         try {
-            fileName = Utils.saveTextToFile(data.toString(4),"out.txt");
+            fileName = Utils.saveTextToFile("\n "+data.toString(4),"out.txt");
         } catch (JSONException e) {
             e.printStackTrace();
         }

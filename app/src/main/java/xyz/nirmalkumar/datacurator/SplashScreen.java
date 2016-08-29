@@ -28,7 +28,7 @@ import xyz.nirmalkumar.datacurator.controllers.Utils;
  * status bar and navigation/system bar) with user interaction.
  */
 public class SplashScreen extends AppCompatActivity {
-
+    
 
     @Bind(R.id.tag_url)
     EditText mTagURL;
